@@ -4,6 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "generate-mocks": "flutter packages pub run build_runner build"
+    "generate-mocks": "flutter packages pub run build_runner build",
+    "test-cov": "flutter test --coverage",
+    "codecov": "curl -Os https://uploader.codecov.io/latest/linux/codecov"
   }
 }
