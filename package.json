@@ -4,8 +4,16 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "generate-mocks": "flutter packages pub run build_runner build",
-    "test-cov": "flutter test --coverage",
-    "codecov": "curl -Os https://uploader.codecov.io/latest/linux/codecov"
+    "build": "flutter packages pub run build_runner build",
+    "build-watch": "flutter packages pub run build_runner build --watch",
+    "test": "flutter test --coverage",
+    "generate-test-helper-file": "file=test/coverage_helper_test.dart && echo \"// Helper file to make coverage work for all dart files\n\" > $file && echo \"// ignore_for_file: unused_import\" >> $file",
+    "add-imports-to-test-helper-file": "file=test/coverage_helper_test.dart find lib '!' -path '*generated*/*' '!' -name '*.g.dart' '!' -name '*.part.dart' '!' -name '*.freezed.dart' -name '*.dart*' | cut -c4- | awk -v package=$1 '{printf \"import '\\''package:flutter_notes_app%s%s'\\'';\n\", package, $1}' >> $file",
+    "add-main-to-test-helper-file": "file=test/coverage_helper_test.dart echo \"void main() {}\" >> $file",
+    "precreate-test-file": "yarn generate-test-helper-file",
+    "create-test-file": "yarn add-imports-to-test-helper-file",
+    "postcreate-test-file": "yarn add-main-to-test-helper-file",
+    "aa": "lcov --remove coverage/lcov.info 'lib/*/*.freezed.dart' 'lib/*/*.g.dart' 'lib/*/*.part.dart' 'lib/generated/*.dart' 'lib/generated/*/*.dart' -o coverage/lcov.info",
+    "upload-coverage-to-codecov": "curl -Os https://uploader.codecov.io/latest/linux/codecov && chmod +x codecov && ./codecov -t 923d6656-7a14-414a-b7de-43c711bfe0b9"
   }
 }

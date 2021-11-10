@@ -1,0 +1,39 @@
+name: Codecov
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  runTests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Install and set Flutter version
+        uses: subosito/flutter-action@v1.5.3
+        with:
+          flutter-version: "2.5.3"
+
+      - name: Restore packages
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Run tests
+        run: flutter test --coverage
+
+      - name: Code coverage threshold
+        uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
+        with:
+          path: "./coverage/lcov.info"
+          min_coverage: 95
+          exclude: "**/*.freezed.dart **/*.part.dart **/*.g.dart"
+
+      - name: Upload
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
