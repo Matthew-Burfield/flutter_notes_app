@@ -29,7 +29,7 @@ jobs:
         uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
         with:
           path: "./coverage/lcov.info"
-          min_coverage: 95
+          min_coverage: 75
           exclude: "**/*.freezed.dart **/*.part.dart **/*.g.dart"
 
       - name: Upload
