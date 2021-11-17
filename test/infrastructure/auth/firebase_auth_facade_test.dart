@@ -304,4 +304,25 @@ void main() {
       expect(result, const Left(AuthFailure.serverError()));
     });
   });
+
+  group('GetSignedInUser', () {
+    // TODO: Not sure how to test this - but it's only returning the user directly
+    // from firebase anyway
+  });
+
+  group('SignOut', () {
+    test('should call the sign out functions to properly sign out the user',
+        () async {
+      // assert
+      when(mockFirebaseAuth.signOut()).thenAnswer((_) async {});
+      when(mockGoogleSignIn.signOut()).thenAnswer((_) async {});
+
+      // act
+      await firebaseAuthFacade.signOut();
+
+      // expect
+      verify(mockFirebaseAuth.signOut());
+      verify(mockGoogleSignIn.signOut());
+    });
+  });
 }

@@ -5,9 +5,10 @@
 import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:flutter_notes_app/domain/auth/auth_failure.dart' as _i5;
+import 'package:flutter_notes_app/domain/auth/auth_failure.dart' as _i6;
 import 'package:flutter_notes_app/domain/auth/i_auth_facade.dart' as _i3;
-import 'package:flutter_notes_app/domain/auth/value_objects.dart' as _i6;
+import 'package:flutter_notes_app/domain/auth/user.dart' as _i5;
+import 'package:flutter_notes_app/domain/auth/value_objects.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
@@ -19,7 +20,9 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
-class _FakeEither_0<L, R> extends _i1.Fake implements _i2.Either<L, R> {}
+class _FakeOption_0<A> extends _i1.Fake implements _i2.Option<A> {}
+
+class _FakeEither_1<L, R> extends _i1.Fake implements _i2.Either<L, R> {}
 
 /// A class which mocks [IAuthFacade].
 ///
@@ -30,30 +33,41 @@ class MockIAuthFacade extends _i1.Mock implements _i3.IAuthFacade {
   }
 
   @override
-  _i4.Future<_i2.Either<_i5.AuthFailure, _i2.Unit>>
+  _i4.Future<_i2.Option<_i5.User>> getSignedInUser() =>
+      (super.noSuchMethod(Invocation.method(#getSignedInUser, []),
+              returnValue:
+                  Future<_i2.Option<_i5.User>>.value(_FakeOption_0<_i5.User>()))
+          as _i4.Future<_i2.Option<_i5.User>>);
+  @override
+  _i4.Future<_i2.Either<_i6.AuthFailure, _i2.Unit>>
       registerWithEmailAndPassword(
-              {_i6.EmailAddress? emailAddress, _i6.Password? password}) =>
+              {_i7.EmailAddress? emailAddress, _i7.Password? password}) =>
           (super.noSuchMethod(
               Invocation.method(#registerWithEmailAndPassword, [],
                   {#emailAddress: emailAddress, #password: password}),
-              returnValue: Future<_i2.Either<_i5.AuthFailure, _i2.Unit>>.value(
-                  _FakeEither_0<_i5.AuthFailure, _i2.Unit>())) as _i4
-              .Future<_i2.Either<_i5.AuthFailure, _i2.Unit>>);
+              returnValue: Future<_i2.Either<_i6.AuthFailure, _i2.Unit>>.value(
+                  _FakeEither_1<_i6.AuthFailure, _i2.Unit>())) as _i4
+              .Future<_i2.Either<_i6.AuthFailure, _i2.Unit>>);
   @override
-  _i4.Future<_i2.Either<_i5.AuthFailure, _i2.Unit>> signInWithEmailAndPassword(
-          {_i6.EmailAddress? emailAddress, _i6.Password? password}) =>
+  _i4.Future<_i2.Either<_i6.AuthFailure, _i2.Unit>> signInWithEmailAndPassword(
+          {_i7.EmailAddress? emailAddress, _i7.Password? password}) =>
       (super.noSuchMethod(
               Invocation.method(#signInWithEmailAndPassword, [],
                   {#emailAddress: emailAddress, #password: password}),
-              returnValue: Future<_i2.Either<_i5.AuthFailure, _i2.Unit>>.value(
-                  _FakeEither_0<_i5.AuthFailure, _i2.Unit>()))
-          as _i4.Future<_i2.Either<_i5.AuthFailure, _i2.Unit>>);
+              returnValue: Future<_i2.Either<_i6.AuthFailure, _i2.Unit>>.value(
+                  _FakeEither_1<_i6.AuthFailure, _i2.Unit>()))
+          as _i4.Future<_i2.Either<_i6.AuthFailure, _i2.Unit>>);
   @override
-  _i4.Future<_i2.Either<_i5.AuthFailure, _i2.Unit>> signInWithGoogle() =>
+  _i4.Future<_i2.Either<_i6.AuthFailure, _i2.Unit>> signInWithGoogle() =>
       (super.noSuchMethod(Invocation.method(#signInWithGoogle, []),
-              returnValue: Future<_i2.Either<_i5.AuthFailure, _i2.Unit>>.value(
-                  _FakeEither_0<_i5.AuthFailure, _i2.Unit>()))
-          as _i4.Future<_i2.Either<_i5.AuthFailure, _i2.Unit>>);
+              returnValue: Future<_i2.Either<_i6.AuthFailure, _i2.Unit>>.value(
+                  _FakeEither_1<_i6.AuthFailure, _i2.Unit>()))
+          as _i4.Future<_i2.Either<_i6.AuthFailure, _i2.Unit>>);
+  @override
+  _i4.Future<void> signOut() =>
+      (super.noSuchMethod(Invocation.method(#signOut, []),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
   String toString() => super.toString();
 }
