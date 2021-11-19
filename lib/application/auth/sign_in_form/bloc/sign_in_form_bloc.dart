@@ -22,7 +22,7 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
           isSubmitting: false,
           authFailureOrSuccessOption: none(),
         )) {
-    on<SignInFormEvent>((eventList, emit) async {
+    on<SignInFormEvent>((eventList, emit) {
       eventList.map(
         emailChanged: (event) {
           return emit(state.copyWith(
