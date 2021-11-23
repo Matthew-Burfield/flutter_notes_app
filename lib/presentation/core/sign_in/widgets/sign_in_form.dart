@@ -1,4 +1,3 @@
-import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_notes_app/application/auth/sign_in_form/bloc/sign_in_form_bloc.dart';
@@ -14,15 +13,38 @@ class SignInForm extends StatelessWidget {
           () {},
           (either) => either.fold(
             (failure) {
-              FlushbarHelper.createError(
-                message: failure.map(
-                  cancelledByUser: (_) => 'Cancelled',
-                  serverError: (_) => 'Server error',
-                  emailAlreadyInUse: (_) => 'Email already in use',
-                  invalidEmailAndPasswordCombination: (_) =>
-                      'Invalid email or password',
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Row(
+                  children: [
+                    const Icon(
+                      Icons.warning,
+                      color: Colors.red,
+                      size: 20.0,
+                    ),
+                    const SizedBox(
+                      width: 8.0,
+                    ),
+                    Text(
+                      failure.map(
+                        cancelledByUser: (_) => 'Cancelled',
+                        serverError: (_) => 'Server error',
+                        emailAlreadyInUse: (_) => 'Email already in use',
+                        invalidEmailAndPasswordCombination: (_) =>
+                            'Invalid email or password',
+                      ),
+                    ),
+                  ],
                 ),
-              );
+              ));
+              // FlushbarHelper.createError(
+              //   message: failure.map(
+              //     cancelledByUser: (_) => 'Cancelled',
+              //     serverError: (_) => 'Server error',
+              //     emailAlreadyInUse: (_) => 'Email already in use',
+              //     invalidEmailAndPasswordCombination: (_) =>
+              //         'Invalid email or password',
+              //   ),
+              // );
             },
             (_) {
               // TODO: Navigate
@@ -36,6 +58,7 @@ class SignInForm extends StatelessWidget {
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
           child: ListView(
+            padding: const EdgeInsets.all(8),
             children: [
               const Text(
                 '📝',
@@ -113,6 +136,14 @@ class SignInForm extends StatelessWidget {
                 },
                 child: const Text('SIGN IN WITH GOOGLE'),
               ),
+              if (state.isSubmitting) ...[
+                const SizedBox(
+                  height: 8,
+                ),
+                const LinearProgressIndicator(
+                  value: null,
+                ),
+              ]
             ],
           ),
         );

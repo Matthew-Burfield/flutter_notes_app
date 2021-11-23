@@ -98,8 +98,6 @@ class FirebaseAuthFacade implements IAuthFacade {
   }
 
   @override
-  Future<void> signOut() => Future.wait([
-    _firebaseAuth.signOut(),
-    _googleSignIn.signOut()
-  ]);
+  Future<void> signOut() =>
+      Future.wait([_firebaseAuth.signOut(), _googleSignIn.signOut()]);
 }

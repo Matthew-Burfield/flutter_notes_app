@@ -22,10 +22,10 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
           isSubmitting: false,
           authFailureOrSuccessOption: none(),
         )) {
-    on<SignInFormEvent>((eventList, emit) {
-      eventList.map(
+    on<SignInFormEvent>((eventList, emit) async {
+      await eventList.map(
         emailChanged: (event) {
-          return emit(state.copyWith(
+          emit(state.copyWith(
             emailAddress: EmailAddress(event.emailStr),
             authFailureOrSuccessOption: none(),
           ));
@@ -85,13 +85,24 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
         emailAddress: state.emailAddress,
         password: state.password,
       );
+      emit(state.copyWith(
+        isSubmitting: false,
+        showErrorMessages: true,
+        // optionOf is equivalent to:
+        // failureOrSuccess == null ? none() : some(failureOrSuccess)
+        authFailureOrSuccessOption: optionOf(failureOrSuccess),
+      ));
     }
-    emit(state.copyWith(
-      isSubmitting: false,
-      showErrorMessages: true,
-      // optionOf is equivalent to:
-      // failureOrSuccess == null ? none() : some(failureOrSuccess)
-      authFailureOrSuccessOption: optionOf(failureOrSuccess),
-    ));
   }
+
+  // Future<void> _completeFormAction(Emitter<SignInFormState> emit,
+  //     Either<AuthFailure, Unit>? failureOrSuccess) {
+  //   return emit(state.copyWith(
+  //     isSubmitting: false,
+  //     showErrorMessages: true,
+  //     // optionOf is equivalent to:
+  //     // failureOrSuccess == null ? none() : some(failureOrSuccess)
+  //     authFailureOrSuccessOption: optionOf(failureOrSuccess),
+  //   ));
+  // }
 }
