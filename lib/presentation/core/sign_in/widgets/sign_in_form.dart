@@ -36,15 +36,6 @@ class SignInForm extends StatelessWidget {
                   ],
                 ),
               ));
-              // FlushbarHelper.createError(
-              //   message: failure.map(
-              //     cancelledByUser: (_) => 'Cancelled',
-              //     serverError: (_) => 'Server error',
-              //     emailAlreadyInUse: (_) => 'Email already in use',
-              //     invalidEmailAndPasswordCombination: (_) =>
-              //         'Invalid email or password',
-              //   ),
-              // );
             },
             (_) {
               // TODO: Navigate
